@@ -1,70 +1,83 @@
-package main
+package main 
 
 import "fmt"
-import "bufio"
-import "os"
+
+/*
+	ARRAYS VS SLIVES
+
+*/
 
 func main() {
 
-//var name string = "Gabriella"
-reader := bufio.NewReader(os.Stdin)
+	/*var grades = [10]int{ }
 
- names := [5]string{"Gabriella", "Lorenzo", "Yoni", "Sylvie", "Alfred"}
-
- var numbers = [10]int{}
-
- for j:=0; j < len(numbers); j++ {
-
-	fmt.Println("Please enter a number")
-
-	fmt.Scan(&numbers[j])
- }
-
- for i := 0; i< len(names); i++ {
-	fmt.Println(names[i])
- }
-
- var favoriteMusics = [5]string{}
-
- for j:=0; j < len(favoriteMusics); j++ {
-
-	fmt.Println("please enter the name of a song:")
+	for i:=0 ; i < len(grades); i ++ {
+		fmt.Println("please enter a student grade:")
+		fmt.Scan(&grades[i])
+	}
 
 
+	// How can I add one more grade to this array?
 
-	favoriteMusics[j] ,_ = reader.ReadString('\n')
- }
+	var grades2 = [11]int{}
 
- for j := 0; j< len(favoriteMusics); j++ {
-	fmt.Println(favoriteMusics[j])
- }
+		for i:=0; i < len(grades); i++ {
+			grades2[i] = grades[i]
+		}
 
-favoriteMusics[0] = "undefined"
+		grades2[10] = 20
 
-fmt.Println(favoriteMusics[0])
+		//How can I remove a grade from the array?
+        
+		grades[9] = -1
+
+		for i:=0; i < len(grades); i++ {
+			if grades[i] < 0 {
+				fmt.Println("Please enter a grade:")
+				fmt.Scan(&grades[i])
+			}
+		}
+
+		for i:=0; i < len(grades); i++ {
+				fmt.Printf("Grade %d : %d\n", i, grades[i])
+		}
+
+		
+		//g = append(g,1) // adding the number 1 to my slice "g" will now have size 1
+		var num int
+
+		for i:=0; i < 10; i ++ {
+			fmt.Println("Please enter a student grade:")
+			fmt.Scan(&num)
+			g = append(g, num)
+		}
+
+		*/
+		run := true
+		num := 0
+		var g = []int{} //slices have no fixed size
 
 
-var slice1 = numbers[0:4] // position 4 is not included
+		for run == true {
+			fmt.Println("Please enter a student grade:")
+			fmt.Scan(&num)
+			if num < 0 {
+				run = false
+			} else {
+				g = append(g, num)
+			}
+		}
 
-for i:=0; i < 4; i++ {
-	slice1[i] = 20
+
+
+//We want to remove the firsr grade
+
+g[0] = g[len(g) - 1] // copying the grade of the last position to the first position.
+
+g = g[0:len(g)-1] // goes from 0 to 4, 4 not included, stops in 3.
+
+for i:=0; i< len(g); i++ {
+	fmt.Println(g[i])
 }
-
-
-for j:=0; j < len(numbers); j ++ {
-
-	fmt.Printf("Number in position %d: %d\n", j, numbers[j])
 	
-}
-
-var s = append(slice1, 20) //adding another 20 to the slice
-
-fmt.Println(s)
-
-fmt.Println(numbers)
-
-for index, a := range numbers {
-	fmt.Println(index, ":", a)
-}
-
 }
