@@ -1,83 +1,72 @@
-package main 
+package main
 
-import "fmt"
+import(
+	 "fmt"
+	 "os"
+	 "encoding/csv"
+	 "strconv"
+)
 
-/*
-	ARRAYS VS SLIVES
+type Student struct {
+	loginName string
+	firstName string
+	familyName string
+	level int
+	class string
+	bestResult int
 
-*/
+}
 
 func main() {
 
-	/*var grades = [10]int{ }
+	file, err := os.Open("students.csv")
 
-	for i:=0 ; i < len(grades); i ++ {
-		fmt.Println("please enter a student grade:")
-		fmt.Scan(&grades[i])
+	students := []Student{}
+
+	if err != nil { //If there's an error
+		fmt.Println("Error opening the file")
+		return
+	}
+
+	reader := csv.NewReader(file) //this is not reading the file, it's just creating the reader
+
+	reader.Read()
+
+	for { //infinite loop, only ends if you do a break
+
+		line, err := reader.Read()
+
+		if err != nil {
+			break
+		}
+
+		var newStudent Student
+
+		newStudent.loginName = line[0]
+		newStudent.firstName = line[1]
+		newStudent.familyName = line[2]
+		newStudent.level, err = strconv.Atoi(line[3])
+		if err != nil {
+			fmt.Println("Their was a problem in conversion", err)
+			newStudent.level = 0
+		}
+		newStudent.class = line[4]
+		newStudent.bestResult, err = strconv.Atoi(line[5])
+
+		if err != nil {
+			fmt.Println("Their was a problem in conversion", err)
+			newStudent.bestResult = 0
+		}
+		
+		students = append(students, newStudent)
+
+
+	}
+
+	for _,student := range students {
+		fmt.Printf("The student %s at level %d was imported from the csv file to the program\n", student.loginName,student.level)
 	}
 
 
-	// How can I add one more grade to this array?
 
-	var grades2 = [11]int{}
-
-		for i:=0; i < len(grades); i++ {
-			grades2[i] = grades[i]
-		}
-
-		grades2[10] = 20
-
-		//How can I remove a grade from the array?
-        
-		grades[9] = -1
-
-		for i:=0; i < len(grades); i++ {
-			if grades[i] < 0 {
-				fmt.Println("Please enter a grade:")
-				fmt.Scan(&grades[i])
-			}
-		}
-
-		for i:=0; i < len(grades); i++ {
-				fmt.Printf("Grade %d : %d\n", i, grades[i])
-		}
-
-		
-		//g = append(g,1) // adding the number 1 to my slice "g" will now have size 1
-		var num int
-
-		for i:=0; i < 10; i ++ {
-			fmt.Println("Please enter a student grade:")
-			fmt.Scan(&num)
-			g = append(g, num)
-		}
-
-		*/
-		run := true
-		num := 0
-		var g = []int{} //slices have no fixed size
-
-
-		for run == true {
-			fmt.Println("Please enter a student grade:")
-			fmt.Scan(&num)
-			if num < 0 {
-				run = false
-			} else {
-				g = append(g, num)
-			}
-		}
-
-
-
-//We want to remove the firsr grade
-
-g[0] = g[len(g) - 1] // copying the grade of the last position to the first position.
-
-g = g[0:len(g)-1] // goes from 0 to 4, 4 not included, stops in 3.
-
-for i:=0; i< len(g); i++ {
-	fmt.Println(g[i])
-}
-	
 }
